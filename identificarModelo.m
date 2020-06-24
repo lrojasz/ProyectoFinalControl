@@ -1,7 +1,20 @@
 %% Identificacion del sistema
 %% Laura Rojas, B76798, grupo 2
 %% Determinar modelo
+%identificar la función de transferencia de 'caja negra' del proceso
+func = tf(3.79,[40 1 0],'InputDelay',2);
 
+%aplicar escalón a función 'desconocida' y declarar salida 
+[sal, tiemp] = step(func,0:0.5:500);
+
+%plotear respuesta escalón para método de Alfaro
+figure()
+plot(tiemp,sal)
+title('Respuesta al escalón');
+xlabel('tiempo [t]');
+ylabel('señal de salida');
+
+%%
 %declarar tiempo antes de 0
 tnegative = 1;
 
@@ -11,17 +24,6 @@ stepFunction = tf(1,'InputDelay',tnegative);
 %identificar la función de transferencia de 'caja negra' del proceso
 funcDesconocida = tf(3.79,[40 1 0],'InputDelay',2+tnegative);
 
-%aplicar escalón a función 'desconocida' y declarar salida 
-[salida, tiempo] = step(funcDesconocida,0:0.5:40);
-
-%plotear respuesta escalón para método de Alfaro
-figure()
-plot(tiempo,salida)
-title('Respuesta al escalón');
-xlabel('tiempo [t]');
-ylabel('señal de salida');
-
-%%
 %aplicar escalón a función 'desconocida' y declarar salida como cajaNegra
 [salida, tiempo] = step(funcDesconocida,-tnegative:0.5:10);
 [entrada, tiempo] = step(stepFunction,-tnegative:0.5:10);
