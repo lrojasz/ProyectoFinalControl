@@ -13,9 +13,17 @@ funcDesconocida = tf(3.79,[40 1 0],'InputDelay',2+tnegative);
 
 
 %aplicar escalón a función 'desconocida' y declarar salida como cajaNegra
-[salida, tiempo] = step(funcDesconocida,-tnegative:0.5:10);
-[entrada, tiempo] = step(stepFunction,-tnegative:0.5:10);
+[salida, tiempo] = step(funcDesconocida,-tnegative:0.5:20);
+[entrada, tiempo] = step(stepFunction,-tnegative:0.5:20);
 
+%plotear respuesta escalón para método de Alfaro
+figure()
+plot(tiempo,salida)
+title('Respuesta al escalón');
+xlabel('tiempo [t]');
+ylabel('señal de salida');
+
+%%
 %obtener modelo P0
 estimateData = iddata(salida,entrada,0.5);
 sysP0 = procest(estimateData,'P0')
@@ -56,6 +64,7 @@ title('Comparación de modelo con un polo y un cero');
 xlabel('tiempo [t]');
 ylabel('señales de salida');
 
+
 %obtener modelo P1D
 estimateData = iddata(salida,entrada,0.5);
 sysP1D = procest(estimateData,'P1D')
@@ -86,7 +95,6 @@ title('Comparación de modelo con dos polos');
 xlabel('tiempo [t]');
 ylabel('señales de salida');
 
-%%
 %obtener modelo P2D
 estimateData = iddata(salida,entrada,0.5);
 sysP2D = procest(estimateData,'P2D')
