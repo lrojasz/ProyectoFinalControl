@@ -2,27 +2,33 @@
 %% Laura Rojas, B76798, grupo 2
 %% Determinar modelo
 
+%%%s=tf('s');
+%%%L1=(3.79*exp(-2*s))/(s*(40*s+1));
+%%%sisotool(L1)
+
+
+
 %declarar tiempo antes de 0
 tnegative = 1;
 
-%declarar entrada escal髇
+%declarar entrada escal贸n
 stepFunction = tf(1,'InputDelay',tnegative);
 
-%identificar la funci髇 de transferencia de 'caja negra' del proceso
+%identificar la funci贸n de transferencia de 'caja negra' del proceso
 funcDesconocida = tf(3.79,[40 1 0],'InputDelay',2+tnegative);
 
-%aplicar escal髇 a funci髇 'desconocida' y declarar salida 
+%aplicar escal贸n a funci贸n 'desconocida' y declarar salida 
 [salida, tiempo] = step(funcDesconocida,0:0.5:40);
 
-%plotear respuesta escal髇 para m閠odo de Alfaro
+%plotear respuesta escal贸n para m茅todo de Alfaro
 figure()
 plot(tiempo,salida)
-title('Respuesta al escal髇');
+title('Respuesta al escal贸n');
 xlabel('tiempo [t]');
-ylabel('se馻l de salida');
+ylabel('se帽al de salida');
 
 %%
-%aplicar escal髇 a funci髇 'desconocida' y declarar salida como cajaNegra
+%aplicar escal贸n a funci贸n 'desconocida' y declarar salida como cajaNegra
 [salida, tiempo] = step(funcDesconocida,-tnegative:0.5:10);
 [entrada, tiempo] = step(stepFunction,-tnegative:0.5:10);
 
@@ -32,9 +38,9 @@ sysP0 = procest(estimateData,'P0')
 %comparar 
 figure()
 compare(estimateData,sysP0)
-title('Comparaci髇 de modelo proporcional');
+title('Comparaci贸n de modelo proporcional');
 xlabel('tiempo [t]');
-ylabel('se馻les de salida');
+ylabel('se帽ales de salida');
 
 %obtener modelo P0D
 estimateData = iddata(salida,entrada,0.5);
@@ -42,9 +48,9 @@ sysP0D = procest(estimateData,'P0D')
 %comparar 
 figure()
 compare(estimateData,sysP0D)
-title('Comparaci髇 de modelo proporcional');
+title('Comparaci贸n de modelo proporcional');
 xlabel('tiempo [t]');
-ylabel('se馻les de salida');
+ylabel('se帽ales de salida');
 
 %obtener modelo P1
 estimateData = iddata(salida,entrada,0.5);
@@ -52,9 +58,9 @@ sysP1 = procest(estimateData,'P1')
 %comparar 
 figure()
 compare(estimateData,sysP1)
-title('Comparaci髇 de modelo con un polo');
+title('Comparaci贸n de modelo con un polo');
 xlabel('tiempo [t]');
-ylabel('se馻les de salida');
+ylabel('se帽ales de salida');
 
 %obtener modelo P1Z
 estimateData = iddata(salida,entrada,0.5);
@@ -62,9 +68,9 @@ sysP1Z = procest(estimateData,'P1Z')
 %comparar 
 figure()
 compare(estimateData,sysP1Z)
-title('Comparaci髇 de modelo con un polo y un cero');
+title('Comparaci贸n de modelo con un polo y un cero');
 xlabel('tiempo [t]');
-ylabel('se馻les de salida');
+ylabel('se帽ales de salida');
 
 
 %obtener modelo P1D
@@ -73,9 +79,9 @@ sysP1D = procest(estimateData,'P1D')
 %comparar 
 figure()
 compare(estimateData,sysP1D)
-title('Comparaci髇 de modelo de un polo con tiempo muetro');
+title('Comparaci贸n de modelo de un polo con tiempo muetro');
 xlabel('tiempo [t]');
-ylabel('se馻les de salida');
+ylabel('se帽ales de salida');
 
 %obtener modelo P1DI
 estimateData = iddata(salida,entrada,0.5);
@@ -83,9 +89,9 @@ sysP1DI = procest(estimateData,'P1DI')
 %comparar 
 figure()
 compare(estimateData,sysP1DI)
-title('Comparaci髇 de modelo con un polo, integrador y tiempo muetro');
+title('Comparaci贸n de modelo con un polo, integrador y tiempo muetro');
 xlabel('tiempo [t]');
-ylabel('se馻les de salida');
+ylabel('se帽ales de salida');
 
 %obtener modelo P2
 estimateData = iddata(salida,entrada,0.5);
@@ -93,9 +99,9 @@ sysP2 = procest(estimateData,'P2')
 %comparar 
 figure()
 compare(estimateData,sysP2)
-title('Comparaci髇 de modelo con dos polos');
+title('Comparaci贸n de modelo con dos polos');
 xlabel('tiempo [t]');
-ylabel('se馻les de salida');
+ylabel('se帽ales de salida');
 
 %obtener modelo P2D
 estimateData = iddata(salida,entrada,0.5);
@@ -103,7 +109,7 @@ sysP2D = procest(estimateData,'P2D')
 %comparar 
 figure()
 compare(estimateData,sysP2D)
-title('Comparaci髇 de modelo con dos polos y tiempo muetro');
+title('Comparaci贸n de modelo con dos polos y tiempo muetro');
 xlabel('tiempo [t]');
-ylabel('se馻les de salida');
+ylabel('se帽ales de salida');
 
